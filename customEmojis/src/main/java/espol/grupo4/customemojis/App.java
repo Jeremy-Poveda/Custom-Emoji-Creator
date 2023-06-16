@@ -37,9 +37,22 @@ public class App extends Application {
         CircularDoubleLinkedList<Integer> cdll = new CircularDoubleLinkedList();
         //System.out.println(cdll);
         cdll.addLast(3);
+        cdll.addLast(4);
+        cdll.addLast(5);
+        cdll.addLast(6);
+        cdll.addLast(7);
+        cdll.addLast(8);
         System.out.println(cdll.size());
+        System.out.println(cdll.get(1));
+        
+        System.out.println(cdll);
+        cdll.remove(0);
+        System.out.println(cdll);
+        
+        cdll.add(0, 9);
         System.out.println(cdll);
         //launch();
+        
     }
 
 }
