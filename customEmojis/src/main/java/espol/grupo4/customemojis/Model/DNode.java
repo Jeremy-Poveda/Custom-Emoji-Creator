@@ -37,4 +37,8 @@ public class DNode<E> {
     public void setPrev(DNode<E> prev) {
         this.prev = prev;
     }
+    @Override
+    public String toString(){
+        return "["+this.content+"]";
+    }
 }

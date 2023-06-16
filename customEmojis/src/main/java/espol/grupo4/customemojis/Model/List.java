@@ -1,6 +1,9 @@
 package espol.grupo4.customemojis.Model;
 
-public interface List<T> {
+public interface List<T> extends Iterable<T> {
     public int size();
-    public void addLast(T element);
+    public boolean addLast(T element);
+    public boolean isEmpty();
+    public T get(int index);
+    
 }

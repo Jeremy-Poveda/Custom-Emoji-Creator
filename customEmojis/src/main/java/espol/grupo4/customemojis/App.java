@@ -1,5 +1,6 @@
 package espol.grupo4.customemojis;
 
+import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,7 +34,12 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        CircularDoubleLinkedList<Integer> cdll = new CircularDoubleLinkedList();
+        //System.out.println(cdll);
+        cdll.addLast(3);
+        System.out.println(cdll.size());
+        System.out.println(cdll);
+        //launch();
     }
 
 }
