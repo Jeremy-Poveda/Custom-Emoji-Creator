@@ -14,35 +14,18 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.setTitle("Custom Emojis - Grupo 4");
-        stage.show();
-    }
-
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Inicio de sesión");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
-        CircularDoubleLinkedList<Integer> cdll = new CircularDoubleLinkedList();
-
-        cdll.add(2,0);
-        cdll.addLast(3);
-        System.out.println(cdll);
-        cdll.add(4,2);
-        System.out.println(cdll);
-        cdll.addFirst(5);
-        System.out.println(cdll);
-        //launch();
+        launch(args);
     }
+
 }
