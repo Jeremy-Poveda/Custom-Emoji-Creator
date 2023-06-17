@@ -144,7 +144,7 @@ public class CircularDoubleLinkedList<T> implements List<T> {
         }
         return content;
     }
-    
+      
     @Override
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<>() {
