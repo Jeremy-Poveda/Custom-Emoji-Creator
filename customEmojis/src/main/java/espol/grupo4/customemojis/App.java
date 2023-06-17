@@ -35,24 +35,14 @@ public class App extends Application {
 
     public static void main(String[] args) {
         CircularDoubleLinkedList<Integer> cdll = new CircularDoubleLinkedList();
-        //System.out.println(cdll);
+
+        cdll.add(2,0);
         cdll.addLast(3);
-        cdll.addLast(4);
-        cdll.addLast(5);
-        cdll.addLast(6);
-        cdll.addLast(7);
-        cdll.addLast(8);
-        System.out.println(cdll.size());
-        System.out.println(cdll.get(1));
-        
         System.out.println(cdll);
-        cdll.remove(0);
+        cdll.add(4,2);
         System.out.println(cdll);
-        
-        cdll.add(0, 9);
+        cdll.addFirst(5);
         System.out.println(cdll);
         //launch();
-        
     }
-
 }
