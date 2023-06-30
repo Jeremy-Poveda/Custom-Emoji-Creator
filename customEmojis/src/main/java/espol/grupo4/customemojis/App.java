@@ -1,6 +1,7 @@
 package espol.grupo4.customemojis;
 
 import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
+import espol.grupo4.customemojis.Controllers.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

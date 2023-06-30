@@ -6,14 +6,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="691.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.grupo4.customemojis.Controllers.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="691.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.grupo4.customemojis.Controllers.RegistroController">
     <children>
-        <ImageView fitHeight="462.0" fitWidth="725.0" layoutX="5.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="462.0" fitWidth="705.0" layoutX="5.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
                 <Image url="@img/emojisBackground.jpg" />
             </image>
@@ -24,7 +26,7 @@
                 <Point3D />
             </rotationAxis>
         </ImageView>
-        <Button fx:id="loginButton" layoutX="236.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="25.0" prefWidth="109.0" text="Iniciar sesión" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="348.0">
+        <Button fx:id="registerButton" layoutX="284.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="117.0" text="Registrar" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="290.0">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
@@ -45,16 +47,15 @@
             </font>
         </Label>
         <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="183.0" layoutY="207.0" prefHeight="17.0" prefWidth="53.0" text="Usuario:" textAlignment="CENTER" textFill="#e50795" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="457.0" />
-        <Label fx:id="statusLabel" layoutX="246.0" layoutY="263.0" prefHeight="24.0" prefWidth="200.0" />
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="110.0" prefHeight="43.0" prefWidth="108.0" text="Login" textFill="#eb3d81" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="275.0">
+        <Pane layoutX="246.0" layoutY="263.0" prefHeight="24.0" prefWidth="200.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="246.0">
+            <children>
+                <Text fx:id="messageText" layoutX="0.0" layoutY="0.0" text="" />
+            </children>
+        </Pane>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="110.0" prefHeight="43.0" prefWidth="108.0" text="Registro" textFill="#eb3d81" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="275.0">
             <font>
                 <Font name="Arial Black" size="35.0" />
             </font>
         </Label>
-         <Button fx:id="registerButton" layoutX="361.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="109.0" text="Registrar" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="247.0">
-            <font>
-                <Font name="Arial" size="13.0" />
-            </font>
-        </Button>
     </children>
 </AnchorPane>
