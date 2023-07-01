@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -55,6 +56,22 @@ public class LoginController implements Initializable {
             // Inicio de sesión exitoso
             statusLabel.setTextFill(Color.GREEN);
             statusLabel.setText("Inicio de sesión exitoso");
+            try {
+                FXMLLoader workWindows = new FXMLLoader(App.class.getResource("WorkSpace.fxml"));
+                Parent root = workWindows.load();
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setTitle("WorkSpace");
+                stage.setScene(scene);
+                stage.show();
+
+                Stage loginStage = (Stage) loginButton.getScene().getWindow();
+                loginStage.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             // Usuario o contraseña incorrectos
             statusLabel.setTextFill(Color.RED);
