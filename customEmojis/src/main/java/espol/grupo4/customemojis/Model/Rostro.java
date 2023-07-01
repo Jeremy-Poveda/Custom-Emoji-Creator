@@ -9,5 +9,19 @@ package espol.grupo4.customemojis.Model;
  * @author leo
  */
 public class Rostro {
+    private String ruta;
+
+    public Rostro(String ruta) {
+        this.ruta = ruta;
+    }
+
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+    
     
 }
