@@ -25,29 +25,24 @@ public class CircularDoubleLinkedList<T> implements List<T> {
     
     @Override
     public T get(int index) {
-        if(index < 0 || index >= this.size()){
-            System.out.println("[Error] Ingrese un índice válido.");
-            return null;
-        } else {
-            DNode<T> viajero = last.getNext();
-            T content = viajero.getContent();
-            while(index != 0){
-                index--;
-                content = viajero.getNext().getContent();
-                viajero = viajero.getNext();
-            }
-            return content;
-        }   
+        return this.getNode(index).getContent();
     }
     
     private DNode<T> getNode(int index){
-        DNode<T> current = last.getNext();
-        for(int i = 0; i < index; i++){
-            current = current.getNext();
+        DNode<T> current = last.getNext(); // inicia desde el primero
+        if(index >= 0){
+            for(int i = 0; i < index; i++){
+                current = current.getNext();
+            }
+        } else if (index < 0){
+            index = Math.abs(index);
+            for(int i = 0; i < index; i++){
+                current = current.getPrev();
+            }
         }
         return current;
     }
-
+    
     @Override
     public boolean add(T element, int index){
         if (element == null) {
@@ -74,6 +69,12 @@ public class CircularDoubleLinkedList<T> implements List<T> {
             selectedNode.setPrev(newNode);
             return true;
         }
+    }
+    
+    @Override
+    public boolean add(T element) {
+        this.addLast(element);
+        return true;
     }
     
     @Override
