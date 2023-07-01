@@ -15,68 +15,41 @@
    <children>
       <BorderPane prefHeight="435.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <VBox prefHeight="251.0" prefWidth="559.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="251.0" prefWidth="559.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="96.0" text="Rostro" textAlignment="CENTER" />
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="560.0" spacing="20.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#fList" prefHeight="25.0" prefWidth="80.0" text="Caras" />
+                        <Button mnemonicParsing="false" onAction="#eList" prefHeight="25.0" prefWidth="80.0" text="Ojos" />
+                        <Button mnemonicParsing="false" onAction="#mList" prefHeight="25.0" prefWidth="80.0" text="Bocas" />
+                        <Button mnemonicParsing="false" onAction="#ebList" prefHeight="25.0" prefWidth="80.0" text="Cejas" />
+                        <Button mnemonicParsing="false" onAction="#aList" prefHeight="25.0" prefWidth="80.0" text="Accesorios" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="194.0" text="Selecciona un elemento:" textAlignment="CENTER" />
                   <HBox alignment="CENTER" fillHeight="false">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#prevFace" text="&lt;" textAlignment="CENTER">
+                        <Button mnemonicParsing="false" onAction="#prev" text="&lt;" textAlignment="CENTER">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
                         </Button>
-                        <ImageView fx:id="Face0" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#f0Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Face1" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#f1Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Face2" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#f2Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Face3" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#f3Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Face4" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#f4Selected" pickOnBounds="true" preserveRatio="true" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#nextFace" text="&gt;" textAlignment="CENTER">
+                        <ImageView fx:id="iv0" fitHeight="80.0" fitWidth="80.0" nodeOrientation="INHERIT" onMouseClicked="#iv0Selected" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="iv1" fitHeight="80.0" fitWidth="80.0" nodeOrientation="INHERIT" onMouseClicked="#iv1Selected" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="iv2" fitHeight="80.0" fitWidth="80.0" nodeOrientation="INHERIT" onMouseClicked="#iv2Selected" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="iv3" fitHeight="80.0" fitWidth="80.0" nodeOrientation="INHERIT" onMouseClicked="#iv3Selected" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="iv4" fitHeight="80.0" fitWidth="80.0" nodeOrientation="INHERIT" onMouseClicked="#iv4Selected" pickOnBounds="true" preserveRatio="true" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#next" text="&gt;" textAlignment="CENTER">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="96.0" text="Ojos" textAlignment="CENTER" />
-                  <HBox alignment="CENTER" fillHeight="false">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#prevEye" text="&lt;" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </Button>
-                        <ImageView fx:id="Eye0" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#e0Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Eye1" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#e1Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Eye2" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#e2Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Eye3" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#e3Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Eye4" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#e4Selected" pickOnBounds="true" preserveRatio="true" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#nextEye" text="&gt;" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="96.0" text="Boca" textAlignment="CENTER" />
-                  <HBox alignment="CENTER" fillHeight="false">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#prevMouth" text="&lt;" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </Button>
-                        <ImageView fx:id="Mouth0" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#m0Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Mouth1" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#m1Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Mouth2" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#m2Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Mouth3" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#m3Selected" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="Mouth4" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#m4Selected" pickOnBounds="true" preserveRatio="true" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#nextMouth" text="&gt;" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteElement" text="Delete" textAlignment="CENTER" />
                </children>
                <BorderPane.margin>
                   <Insets left="20.0" right="20.0" />
@@ -87,8 +60,10 @@
             <Pane prefHeight="184.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="faceSelected" fitHeight="150.0" fitWidth="150.0" layoutX="230.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="mouthSelected" fitHeight="45.0" fitWidth="88.0" layoutX="230.0" layoutY="113.0" nodeOrientation="INHERIT" pickOnBounds="true" />
-                  <ImageView fx:id="eyeSelected" fitHeight="101.0" fitWidth="108.0" layoutX="230.0" layoutY="54.0" pickOnBounds="true" />
+                  <ImageView fx:id="mouthSelected" fitHeight="45.0" fitWidth="88.0" layoutX="260.0" layoutY="113.0" nodeOrientation="INHERIT" pickOnBounds="true" />
+                  <ImageView fx:id="eyeSelected" fitHeight="101.0" fitWidth="108.0" layoutX="250.0" layoutY="54.0" pickOnBounds="true" />
+                  <ImageView fx:id="eyeBrowSelected" fitHeight="150.0" fitWidth="150.0" layoutX="230.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="accessorieSelected" fitHeight="150.0" fitWidth="150.0" layoutX="230.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="logoutButton" layoutX="453.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleLogoutButtonAction" prefHeight="25.0" prefWidth="111.0" text="Cerrar Sesión" textAlignment="CENTER">
                      <font>
                         <Font name="Arial" size="12.0" />

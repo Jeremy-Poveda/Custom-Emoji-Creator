@@ -10,9 +10,7 @@ import javafx.scene.control.Button;
 
 import espol.grupo4.customemojis.App;
 import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
-import espol.grupo4.customemojis.Model.EyeLoader;
-import espol.grupo4.customemojis.Model.FaceLoader;
-import espol.grupo4.customemojis.Model.MouthLoader;
+import espol.grupo4.customemojis.Model.Loader;
 import java.util.ArrayDeque;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,49 +19,19 @@ import javafx.scene.input.MouseEvent;
 public class WorkSpaceController implements Initializable {
 
     @FXML
-    private ImageView Eye0;
+    private ImageView iv0;
 
     @FXML
-    private ImageView Eye1;
+    private ImageView iv1;
 
     @FXML
-    private ImageView Eye2;
+    private ImageView iv2;
 
     @FXML
-    private ImageView Eye3;
+    private ImageView iv3;
 
     @FXML
-    private ImageView Eye4;
-
-    @FXML
-    private ImageView Face0;
-
-    @FXML
-    private ImageView Face1;
-
-    @FXML
-    private ImageView Face2;
-
-    @FXML
-    private ImageView Face3;
-
-    @FXML
-    private ImageView Face4;
-
-    @FXML
-    private ImageView Mouth0;
-
-    @FXML
-    private ImageView Mouth1;
-
-    @FXML
-    private ImageView Mouth2;
-
-    @FXML
-    private ImageView Mouth3;
-
-    @FXML
-    private ImageView Mouth4;
+    private ImageView iv4;
     
     @FXML
     private ImageView eyeSelected;
@@ -74,23 +42,33 @@ public class WorkSpaceController implements Initializable {
     @FXML
     private ImageView mouthSelected;
     
-    
-    private ArrayDeque<Image> updaterQueue = new ArrayDeque<>();
-
+    @FXML
+    private ImageView accessorieSelected;
 
     @FXML
-    private ImageView customEmojiResult;
+    private ImageView eyeBrowSelected;
+
+    
+    private ArrayDeque<Image> updaterQueue = new ArrayDeque<>();
+    
+    Loader loader;
+
+    CircularDoubleLinkedList<Image> imageCDLL;
+    
+    private boolean faceL = false;
+    private boolean eyesL = false;
+    private boolean mouthL = false;
+    private boolean eyebrowL = false;
+    private boolean accessoriesL = false;
+    
+    
+    
     
     @FXML
     private Button logoutButton;
     
-    FaceLoader fl = new FaceLoader("src/main/resources/espol/grupo4/customemojis/img/faces");
-    EyeLoader el = new EyeLoader("src/main/resources/espol/grupo4/customemojis/img/eyes");
-    MouthLoader ml = new MouthLoader("src/main/resources/espol/grupo4/customemojis/img/mouth");
-    
-    int indexFaces = 0; // Es el indice por donde se empezará a dibujar la lista en los Image Views
-    int indexEyes = 0;
-    int indexMouth = 0;
+    int indexDisplay = 0; // Es el indice por donde se empezará a dibujar la lista en los Image Views
+
     @FXML
     private void handleLogoutButtonAction(ActionEvent event) throws IOException {
         // Cargar la ventana de inicio de sesión
@@ -99,158 +77,144 @@ public class WorkSpaceController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        updateFaces();
-        updateEyes();
-        updateMouths();
+        faceL = true;
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
+        imageCDLL = loader.loadImages();
+        update();
     }    
+
     
-    private void updateFaces(){
-        CircularDoubleLinkedList<Image> imageFaces = fl.loadImages();
+    private void update(){
         for(int i = 0; i < 5; i++){
-           updaterQueue.offer(imageFaces.get(indexFaces+i));
+           updaterQueue.offer(imageCDLL.get(indexDisplay+i));
         }
-        Face0.setImage(updaterQueue.poll());
-        Face1.setImage(updaterQueue.poll());
-        Face2.setImage(updaterQueue.poll());
-        Face3.setImage(updaterQueue.poll());
-        Face4.setImage(updaterQueue.poll());
+        iv0.setImage(updaterQueue.poll());
+        iv1.setImage(updaterQueue.poll());
+        iv2.setImage(updaterQueue.poll());
+        iv3.setImage(updaterQueue.poll());
+        iv4.setImage(updaterQueue.poll());
     }
-    private void updateEyes(){
-        CircularDoubleLinkedList<Image> imageEyes = el.loadImages();
-        for(int i = 0; i < 5; i++){
-           updaterQueue.offer(imageEyes.get(indexEyes+i));
-        }
-        Eye0.setImage(updaterQueue.poll());
-        Eye1.setImage(updaterQueue.poll());
-        Eye2.setImage(updaterQueue.poll());
-        Eye3.setImage(updaterQueue.poll());
-        Eye4.setImage(updaterQueue.poll());
-    }
-    private void updateMouths(){
-        CircularDoubleLinkedList<Image> imageMouths = ml.loadImages();
-        for(int i = 0; i < 5; i++){
-           updaterQueue.offer(imageMouths.get(indexMouth+i));
-        }
-        Mouth0.setImage(updaterQueue.poll());
-        Mouth1.setImage(updaterQueue.poll());
-        Mouth2.setImage(updaterQueue.poll());
-        Mouth3.setImage(updaterQueue.poll());
-        Mouth4.setImage(updaterQueue.poll());
-    }
+    
+    
+  
    
+    @FXML
+    void next(ActionEvent event) {
+        indexDisplay++;
+        update();
+    }
+    @FXML
+    void prev(ActionEvent event) {
+        indexDisplay--;
+        update();
+    }
+    
+    @FXML
+    void fList(ActionEvent event) {
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
+        imageCDLL = loader.loadImages();
+        faceL = true;
+        eyesL = false;
+        mouthL = false;
+        eyebrowL = false;
+        accessoriesL = false;
+        update();
+    }
      @FXML
-    void nextEye(ActionEvent event) {
-        indexEyes++;
-        updateEyes();
+    void mList(ActionEvent event) {
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/mouth");
+        imageCDLL = loader.loadImages();
+        faceL = false;
+        eyesL = false;
+        mouthL = true;
+        eyebrowL = false;
+        accessoriesL = false;
+        update();
+    }
+    @FXML
+    void eList(ActionEvent event) {
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyes");
+        imageCDLL = loader.loadImages();
+        faceL = false;
+        eyesL = true;
+        mouthL = false;
+        eyebrowL = false;
+        accessoriesL = false;
+        update();
+    }
+    @FXML
+    void ebList(ActionEvent event) {
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyebrows");
+        imageCDLL = loader.loadImages();
+        faceL = false;
+        eyesL = false;
+        mouthL = false;
+        eyebrowL = true;
+        accessoriesL = false;
+        update();
+    }
+    @FXML
+    void aList(ActionEvent event) {
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/accessories");
+        imageCDLL = loader.loadImages();
+        faceL = false;
+        eyesL = false;
+        mouthL = false;
+        eyebrowL = false;
+        accessoriesL = true;
+        update();
+    }
+    @FXML
+    void iv0Selected(MouseEvent event) {
+       updateSelected(iv0.getImage());
     }
 
     @FXML
-    void nextFace(ActionEvent event) {
-        indexFaces++;
-        updateFaces();
+    void iv1Selected(MouseEvent event) {
+        updateSelected(iv1.getImage());
     }
 
     @FXML
-    void nextMouth(ActionEvent event) {
-        indexMouth++;
-        updateMouths();
+    void iv2Selected(MouseEvent event) {
+        updateSelected(iv2.getImage());
     }
 
     @FXML
-    void prevEye(ActionEvent event) {
-        indexEyes--;
-        updateEyes();
+    void iv3Selected(MouseEvent event) {
+        updateSelected(iv3.getImage());
     }
 
     @FXML
-    void prevFace(ActionEvent event) {
-        indexFaces--;
-        updateFaces();
-    }
-
-    @FXML
-    void prevMouth(ActionEvent event) {
-        indexMouth--;
-        updateMouths();
+    void iv4Selected(MouseEvent event) {
+        updateSelected(iv4.getImage());
     }
     
-    // Eventos para los ImageViews de las caras
-     @FXML
-    void f0Selected(MouseEvent event) {
-        faceSelected.setImage(Face0.getImage());
-    }
-
-    @FXML
-    void f1Selected(MouseEvent event) {
-        faceSelected.setImage(Face1.getImage());
-    }
-
-    @FXML
-    void f2Selected(MouseEvent event) {
-        faceSelected.setImage(Face2.getImage());
-    }
-
-    @FXML
-    void f3Selected(MouseEvent event) {
-        faceSelected.setImage(Face3.getImage());
-    }
-
-    @FXML
-    void f4Selected(MouseEvent event) {
-        faceSelected.setImage(Face4.getImage());
-    }
-    // Eventos para los ImageViews de los ojos
-     @FXML
-    void e0Selected(MouseEvent event) {
-        eyeSelected.setImage(Eye0.getImage());
-    }
-
-    @FXML
-    void e1Selected(MouseEvent event) {
-        eyeSelected.setImage(Eye1.getImage());
-    }
-
-    @FXML
-    void e2Selected(MouseEvent event) {
-        eyeSelected.setImage(Eye2.getImage());
-    }
-
-    @FXML
-    void e3Selected(MouseEvent event) {
-        eyeSelected.setImage(Eye3.getImage());
-    }
-
-    @FXML
-    void e4Selected(MouseEvent event) {
-        eyeSelected.setImage(Eye4.getImage());
+    public void updateSelected(Image img){
+        if(faceL){
+            faceSelected.setImage(img);
+        } else if (eyesL){
+            eyeSelected.setImage(img);
+        } else if (eyebrowL){
+            eyeBrowSelected.setImage(img);
+        } else if (mouthL){
+            mouthSelected.setImage(img);
+        } else if (accessoriesL){
+            accessorieSelected.setImage(img);
+        }
     }
     
-    // Eventos para los ImageViews de las bocas
-     @FXML
-    void m0Selected(MouseEvent event) {
-        mouthSelected.setImage(Mouth0.getImage());
-    }
-
     @FXML
-    void m1Selected(MouseEvent event) {
-        mouthSelected.setImage(Mouth1.getImage());
+    void deleteElement(ActionEvent event) {
+         if(faceL){
+            faceSelected.setImage(null);
+        } else if (eyesL){
+            eyeSelected.setImage(null);
+        } else if (eyebrowL){
+            eyeBrowSelected.setImage(null);
+        } else if (mouthL){
+            mouthSelected.setImage(null);
+        } else if (accessoriesL){
+            accessorieSelected.setImage(null);
+        }
     }
-
-    @FXML
-    void m2Selected(MouseEvent event) {
-        mouthSelected.setImage(Mouth2.getImage());
-    }
-
-    @FXML
-    void m3Selected(MouseEvent event) {
-        mouthSelected.setImage(Mouth3.getImage());
-    }
-
-    @FXML
-    void m4Selected(MouseEvent event) {
-        mouthSelected.setImage(Mouth4.getImage());
-    }
-    
-    
-    
 }

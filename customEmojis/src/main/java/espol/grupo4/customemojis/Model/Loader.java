@@ -4,29 +4,29 @@ import java.io.File;
 import java.util.PriorityQueue;
 import javafx.scene.image.Image;
 
-public class EyeLoader {
-    private String pathEyes; 
+public class Loader {
+    private String path; 
 
 
-    public EyeLoader(String ruta) {
-        this.pathEyes = ruta;
+    public Loader(String ruta) {
+        this.path = ruta;
     }
 
     public String getRuta() {
-        return pathEyes;
+        return path;
     }
 
     public void setRuta(String ruta) {
-        this.pathEyes = ruta;
+        this.path = ruta;
     }
     public CircularDoubleLinkedList<Image> loadImages() {
         CircularDoubleLinkedList<Image> imageList = new CircularDoubleLinkedList<>();
 
-        File directory = new File(pathEyes);
+        File directory = new File(path);
         File[] files = directory.listFiles();   
 
         if (files == null) {
-            System.out.println("No hay imágenes de eyes.");
+            System.out.println("No hay imágenes en la ruta.");
         }
 
         if (files != null) {
