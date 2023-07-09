@@ -24,8 +24,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 import espol.grupo4.customemojis.App;
+import javafx.scene.text.Font;
 
 public class LoginController implements Initializable {
+
+    @FXML
+    private Label lblLogin;
+
+    @FXML
+    private Label lblusuario;
+
+    @FXML
+    private Label lblpassword;
 
     @FXML
     private TextField usernameField;
@@ -51,24 +61,35 @@ public class LoginController implements Initializable {
 
         if (credentials.containsKey(username) && credentials.get(username).equals(password)) {
             // Inicio de sesión exitoso
-            statusLabel.setTextFill(Color.GREEN);
+            statusLabel.setTextFill(Color.WHITE);
             statusLabel.setText("Inicio de sesión exitoso");
             App.changeRootFXML("Workspace", "Create your custom emoji!");
         } else {
             // Usuario o contraseña incorrectos
-            statusLabel.setTextFill(Color.RED);
+            statusLabel.setTextFill(Color.WHITE);
             statusLabel.setText("Usuario o contraseña incorrectos");
         }
     }
+
     @FXML
     private void handleRegisterButtonAction(ActionEvent event) {
-          App.changeRootFXML("Registro", "Registro");
+        App.changeRootFXML("Registro", "Registro");
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Cargamos la fuente personalizada
+        Font.loadFont(getClass().getResourceAsStream("fonts/8-bitArcadeOut.ttf"), 30);
+        // Aplicar la fuente personalizada
+        lblusuario.setFont(Font.font("Impact", 20));
+        lblpassword.setFont(Font.font("Impact", 20));
+        statusLabel.setFont(Font.font("Impact", 14));
+        loginButton.setFont(Font.font("Impact", 14));
+        registerButton.setFont(Font.font("Impact", 14));
         credentials = new HashMap<>();
         loadCredentials();
     }
+
     private void loadCredentials() {
         try {
             if (!Files.exists(Paths.get("credentials.txt"))) {

@@ -55,4 +55,5 @@ public class RegistroController {
          App.changeRootFXML("Login", "Inicio Sesión");
          
     }
+    
 }

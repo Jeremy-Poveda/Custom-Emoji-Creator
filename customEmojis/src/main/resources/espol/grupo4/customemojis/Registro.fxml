@@ -15,9 +15,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="691.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.grupo4.customemojis.Controllers.RegistroController">
     <children>
-        <ImageView fitHeight="462.0" fitWidth="705.0" layoutX="5.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="653.0" fitWidth="1035.0" layoutX="-172.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-116.0" AnchorPane.leftAnchor="-172.0" AnchorPane.rightAnchor="-158.0" AnchorPane.topAnchor="-4.0">
             <image>
-                <Image url="@img/emojisBackground.jpg" />
+                <Image url="@img/BackgroundRegister.gif" />
             </image>
             <viewport>
                 <Rectangle2D minX="700.0" minY="500.0" />
@@ -26,14 +26,14 @@
                 <Point3D />
             </rotationAxis>
         </ImageView>
-        <Button fx:id="registerButton" layoutX="214.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="117.0" text="Registrar" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="360.0">
+        <Button fx:id="registerButton" layoutX="171.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="25.0" prefWidth="117.0" text="Registrar" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="403.0">
             <font>
-                <Font name="Arial" size="13.0" />
+                <Font name="Impact" size="20.0" />
             </font>
         </Button>
-      <Button fx:id="backButton" layoutX="360.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="25.0" prefWidth="117.0" text="Volver">
+      <Button fx:id="backButton" layoutX="384.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="38.0" prefWidth="131.0" text="Volver">
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Impact" size="20.0" />
          </font>
       </Button>
         <PasswordField fx:id="passwordField" layoutX="268.0" layoutY="238.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="270.0">
@@ -46,20 +46,23 @@
                 <Font name="Arial" size="13.0" />
             </font>
         </TextField>
-        <Label layoutX="162.0" layoutY="242.0" prefHeight="16.0" prefWidth="74.0" text="Contraseña:" textFill="#e50795" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="457.0">
+        <Label fx:id="lblpassword" layoutX="137.0" layoutY="236.0" prefHeight="29.0" prefWidth="131.0" text="Contraseña:" textFill="#00ff97" AnchorPane.leftAnchor="137.0" AnchorPane.rightAnchor="437.0">
             <font>
-                <Font name="Arial" size="13.0" />
+                <Font name="Impact" size="24.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="183.0" layoutY="207.0" prefHeight="17.0" prefWidth="53.0" text="Usuario:" textAlignment="CENTER" textFill="#e50795" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="457.0" />
-        <Pane layoutX="246.0" layoutY="263.0" prefHeight="24.0" prefWidth="200.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="246.0">
+        <Label fx:id="lblusuario" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="171.0" layoutY="201.0" prefHeight="25.0" prefWidth="86.0" text="Usuario:" textAlignment="CENTER" textFill="#00ff97" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="448.0">
+         <font>
+            <Font name="Impact" size="24.0" />
+         </font></Label>
+        <Pane fx:id="lblstatus" layoutX="246.0" layoutY="263.0" prefHeight="24.0" prefWidth="200.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="246.0">
             <children>
                 <Text fx:id="messageText" layoutX="0.0" layoutY="0.0" text="" />
             </children>
         </Pane>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="110.0" prefHeight="43.0" prefWidth="108.0" text="Registro" textFill="#eb3d81" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="275.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="262.0" layoutY="108.0" prefHeight="64.0" prefWidth="187.0" text="Registro" textFill="#00ff97" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="256.0">
             <font>
-                <Font name="Arial Black" size="35.0" />
+                <Font name="Impact" size="35.0" />
             </font>
         </Label>
     </children>
