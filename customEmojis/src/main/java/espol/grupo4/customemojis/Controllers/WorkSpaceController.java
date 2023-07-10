@@ -12,6 +12,11 @@ import espol.grupo4.customemojis.App;
 import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
 import espol.grupo4.customemojis.Model.Loader;
 import java.util.ArrayDeque;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -47,7 +52,18 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     private ImageView eyeBrowSelected;
+    
+    @FXML
+    private Slider sH;
 
+    @FXML
+    private Slider sV;
+
+    @FXML
+    private TextField tAlto;
+
+    @FXML
+    private TextField tAncho;
     
     private ArrayDeque<Image> updaterQueue = new ArrayDeque<>();
     
@@ -80,7 +96,25 @@ public class WorkSpaceController implements Initializable {
         faceL = true;
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
         imageCDLL = loader.loadImages();
+        ImageView selectedIM = selectedIM();
+        tAlto.setText(Double.toString(selectedIM.getFitHeight()));
+        tAncho.setText(Double.toString(selectedIM.getFitWidth()));
         update();
+        updateSelected(iv2.getImage());
+        sH.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+               ImageView sIM = selectedIM();
+               sIM.setLayoutX((double) t1);
+            }
+        });
+        sV.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+               ImageView sIM = selectedIM();
+               sIM.setLayoutY((double) t1);
+            }
+        });
     }    
 
     
@@ -102,11 +136,13 @@ public class WorkSpaceController implements Initializable {
     void next(ActionEvent event) {
         indexDisplay++;
         update();
+        updateSelected(iv2.getImage()); // Manera secuencial
     }
     @FXML
     void prev(ActionEvent event) {
         indexDisplay--;
         update();
+        updateSelected(iv2.getImage()); // Manera secuencial
     }
     
     @FXML
@@ -164,6 +200,7 @@ public class WorkSpaceController implements Initializable {
         accessoriesL = true;
         update();
     }
+    //Manera directa
     @FXML
     void iv0Selected(MouseEvent event) {
        updateSelected(iv0.getImage());
@@ -203,6 +240,21 @@ public class WorkSpaceController implements Initializable {
         }
     }
     
+    public ImageView selectedIM(){
+        if(faceL){
+            return faceSelected;
+        } else if (eyesL){
+            return eyeSelected;
+        } else if (eyebrowL){
+            return eyeBrowSelected;
+        } else if (mouthL){
+            return mouthSelected;
+        } else if (accessoriesL){
+            return accessorieSelected;
+        }
+        return null;
+    }
+    
     @FXML
     void deleteElement(ActionEvent event) {
          if(faceL){
@@ -216,5 +268,31 @@ public class WorkSpaceController implements Initializable {
         } else if (accessoriesL){
             accessorieSelected.setImage(null);
         }
+    }
+    
+     @FXML
+    void bAlto(ActionEvent event) {
+        double nuevoAlto = 0;
+        try{
+           nuevoAlto = Double.valueOf(tAlto.getText());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        ImageView selectedIM = selectedIM();
+        selectedIM.setFitHeight(nuevoAlto);
+    }
+
+    @FXML
+    void bAncho(ActionEvent event) {
+        double nuevoAncho = 0;
+        try{
+           nuevoAncho = Double.valueOf(tAncho.getText());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        ImageView selectedIM = selectedIM();
+        selectedIM.setFitWidth(nuevoAncho);
     }
 }
