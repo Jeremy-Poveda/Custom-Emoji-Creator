@@ -63,7 +63,7 @@ public class LoginController implements Initializable {
             // Inicio de sesión exitoso
             statusLabel.setTextFill(Color.WHITE);
             statusLabel.setText("Inicio de sesión exitoso");
-            App.changeRootFXML("Workspace", "Create your custom emoji!");
+            App.changeRootFXML("WorkSpace", "Create your custom emoji!");
         } else {
             // Usuario o contraseña incorrectos
             statusLabel.setTextFill(Color.WHITE);

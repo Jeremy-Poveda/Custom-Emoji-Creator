@@ -1,9 +1,15 @@
-module espol.grupo4.customemojis {
+module espol.grupo4.customemojis{
     requires javafx.base;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
    
-    opens espol.grupo4.customemojis to javafx.fxml;
+    opens espol.grupo4.customemojis to javafx.fxml, javafx.graphics, javafx.base, javafx.controls;
     exports espol.grupo4.customemojis;
+    
+    opens espol.grupo4.customemojis.Controllers to javafx.fxml;
+    exports espol.grupo4.customemojis.Controllers;
+    
+    opens espol.grupo4.customemojis.Model to javafx.fxml;
+    exports espol.grupo4.customemojis.Model;
 }
