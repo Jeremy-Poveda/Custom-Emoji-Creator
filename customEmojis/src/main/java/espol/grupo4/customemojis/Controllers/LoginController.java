@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
             App.changeRootFXML("WorkSpace", "Create your custom emoji!");
         } else {
             // Usuario o contraseña incorrectos
-            statusLabel.setTextFill(Color.WHITE);
+            statusLabel.setTextFill(Color.RED);
             statusLabel.setText("Usuario o contraseña incorrectos");
         }
     }

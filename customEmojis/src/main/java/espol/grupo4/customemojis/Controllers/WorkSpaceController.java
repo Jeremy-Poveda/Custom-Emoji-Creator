@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.embed.swing.SwingFXUtils;
 import java.io.IOException;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javax.imageio.ImageIO;
@@ -81,9 +82,8 @@ public class WorkSpaceController implements Initializable {
     private double initialX;
     private double initialY;
     
-    int countSaves = 0;
     @FXML
-    private Pane paneIM;
+    private Pane paneIM; // Pane donde están todos los ImageView
 
     @FXML
     public void clickedIM(MouseEvent event) {
@@ -332,17 +332,21 @@ public class WorkSpaceController implements Initializable {
     
     @FXML
     void save(ActionEvent event) {
-        countSaves++;
-        File file = new File("src/main/resources/espol/grupo4/customemojis/exports/emojiguardado"+countSaves+".png");
-        WritableImage writableImage = paneIM.snapshot(new SnapshotParameters(), null);
-        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
-
-        try {
-            ImageIO.write(bufferedImage, "png", file);
-            System.out.println("Captura de imagen guardada correctamente");
-        } catch (IOException e) {
-            System.out.println("Error al guardar la captura de imagen: " + e.getMessage());
-        }
         
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Guardar emoji");
+        dialog.setHeaderText("Ingrese el nombre para guardar su emoji");
+        dialog.setContentText("Nombre archivo: ");
+        dialog.showAndWait().ifPresent( fileName -> {
+            File file = new File("src/main/resources/espol/grupo4/customemojis/exports/"+fileName+".png");
+            WritableImage writableImage = paneIM.snapshot(new SnapshotParameters(), null);
+            BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
+            try {
+                ImageIO.write(bufferedImage, "png", file);
+                System.out.println("Captura de imagen guardada correctamente");
+            } catch (IOException e) {
+                System.out.println("Error al guardar la captura de imagen: " + e.getMessage());
+            }
+        });
     }
 }
