@@ -61,7 +61,16 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="deleteImg" mnemonicParsing="false" text="Eliminar" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="deleteImg" mnemonicParsing="false" prefHeight="33.0" prefWidth="106.0" text="Eliminar" />
+                        <Button fx:id="agregarimg" mnemonicParsing="false" onMouseClicked="#addImage" prefHeight="33.0" prefWidth="110.0" text="Agregar">
+                           <padding>
+                              <Insets left="50.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
                   <Button fx:id="logoutButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogoutButtonAction" prefHeight="36.0" prefWidth="128.0" text="Cerrar Sesión" textAlignment="CENTER">
                      <font>
                         <Font name="Arial" size="12.0" />

@@ -25,6 +25,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 
 public class WorkSpaceController implements Initializable {
@@ -67,7 +68,11 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     private Button deleteImg;
+    
+    @FXML
+    private Button agregarimg;
 
+    
     private ArrayDeque<Image> updaterQueue = new ArrayDeque<>();
 
     Loader loader;
@@ -125,6 +130,7 @@ public class WorkSpaceController implements Initializable {
         update();
         updateSelected(iv2.getImage());
         deleteImg.setOnAction(event -> deleteImgSelected());
+        agregarimg.setOnAction(event -> addImage());
 
     }
 
@@ -181,6 +187,33 @@ public class WorkSpaceController implements Initializable {
         iv2.setImage(updaterQueue.poll());
         iv3.setImage(updaterQueue.poll());
         iv4.setImage(updaterQueue.poll());
+    }
+
+    @FXML
+    void addImage() {
+        // Obtener la ruta de la nueva imagen (por ejemplo, a través de un cuadro de diálogo)
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar imagen");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.png"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            // Cargar la nueva imagen
+            Image newImage = new Image(selectedFile.toURI().toString());
+
+            // Agregar la nueva imagen a la lista
+            imageCDLL.addLast(newImage);
+
+            // Actualizar la visualización de las imágenes
+            update();
+
+            // Actualizar la imagen seleccionada
+            updateSelected(newImage);
+
+            // Obtener el índice de la nueva imagen agregada
+            int newIndex = imageCDLL.size() - 1;
+            System.out.println("Imagen agregada en el índice: " + newIndex);
+        }
     }
 
     @FXML
