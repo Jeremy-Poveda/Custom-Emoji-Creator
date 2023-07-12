@@ -1,6 +1,6 @@
 package espol.grupo4.customemojis.Controllers;
 
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -11,12 +11,22 @@ import javafx.scene.control.Button;
 import espol.grupo4.customemojis.App;
 import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
 import espol.grupo4.customemojis.Model.Loader;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayDeque;
 
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
+import javafx.embed.swing.SwingFXUtils;
+import java.io.IOException;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
+import javax.imageio.ImageIO;
+
 
 public class WorkSpaceController implements Initializable {
 
@@ -70,6 +80,10 @@ public class WorkSpaceController implements Initializable {
     
     private double initialX;
     private double initialY;
+    
+    int countSaves = 0;
+    @FXML
+    private Pane paneIM;
 
     @FXML
     public void clickedIM(MouseEvent event) {
@@ -314,5 +328,21 @@ public class WorkSpaceController implements Initializable {
         }
         ImageView selectedIM = selectedIM();
         selectedIM.setFitWidth(nuevoAncho);
+    }
+    
+    @FXML
+    void save(ActionEvent event) {
+        countSaves++;
+        File file = new File("src/main/resources/espol/grupo4/customemojis/exports/emojiguardado"+countSaves+".png");
+        WritableImage writableImage = paneIM.snapshot(new SnapshotParameters(), null);
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
+
+        try {
+            ImageIO.write(bufferedImage, "png", file);
+            System.out.println("Captura de imagen guardada correctamente");
+        } catch (IOException e) {
+            System.out.println("Error al guardar la captura de imagen: " + e.getMessage());
+        }
+        
     }
 }
