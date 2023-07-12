@@ -13,9 +13,6 @@ import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
 import espol.grupo4.customemojis.Model.Loader;
 import java.util.ArrayDeque;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,12 +49,6 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     private ImageView eyeBrowSelected;
-    
-    @FXML
-    private Slider sH;
-
-    @FXML
-    private Slider sV;
 
     @FXML
     private TextField tAlto;
@@ -77,7 +68,24 @@ public class WorkSpaceController implements Initializable {
     private boolean eyebrowL = false;
     private boolean accessoriesL = false;
     
-    
+    private double initialX;
+    private double initialY;
+
+    @FXML
+    public void clickedIM(MouseEvent event) {
+        ImageView imageView = (ImageView) event.getSource();
+        initialX = imageView.getX() - event.getSceneX();
+        initialY = imageView.getY() - event.getSceneY();
+    }
+
+    @FXML
+    public void draggedIM(MouseEvent event) {
+        ImageView imageView = (ImageView) event.getSource();
+        double newX = initialX + event.getSceneX();
+        double newY = initialY + event.getSceneY();
+        imageView.setX(newX);
+        imageView.setY(newY);
+    }
     
     
     @FXML
@@ -94,6 +102,7 @@ public class WorkSpaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         faceL = true;
+        faceSelected.setDisable(false);
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
         imageCDLL = loader.loadImages();
         ImageView selectedIM = selectedIM();
@@ -101,20 +110,6 @@ public class WorkSpaceController implements Initializable {
         tAncho.setText(Double.toString(selectedIM.getFitWidth()));
         update();
         updateSelected(iv2.getImage());
-        sH.valueProperty().addListener(new ChangeListener<Number>(){
-            @Override
-            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
-               ImageView sIM = selectedIM();
-               sIM.setLayoutX((double) t1);
-            }
-        });
-        sV.valueProperty().addListener(new ChangeListener<Number>(){
-            @Override
-            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
-               ImageView sIM = selectedIM();
-               sIM.setLayoutY((double) t1);
-            }
-        });
     }    
 
     
@@ -128,21 +123,22 @@ public class WorkSpaceController implements Initializable {
         iv3.setImage(updaterQueue.poll());
         iv4.setImage(updaterQueue.poll());
     }
-    
-    
   
-   
     @FXML
     void next(ActionEvent event) {
         indexDisplay++;
         update();
         updateSelected(iv2.getImage()); // Manera secuencial
+        ImageView sIM = selectedIM();
+        sIM.setDisable(false);
     }
     @FXML
     void prev(ActionEvent event) {
         indexDisplay--;
         update();
         updateSelected(iv2.getImage()); // Manera secuencial
+        ImageView sIM = selectedIM();
+        sIM.setDisable(false);
     }
     
     @FXML
@@ -158,6 +154,7 @@ public class WorkSpaceController implements Initializable {
     }
      @FXML
     void mList(ActionEvent event) {
+        
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/mouth");
         imageCDLL = loader.loadImages();
         faceL = false;
@@ -169,6 +166,7 @@ public class WorkSpaceController implements Initializable {
     }
     @FXML
     void eList(ActionEvent event) {
+       
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyes");
         imageCDLL = loader.loadImages();
         faceL = false;
@@ -180,6 +178,7 @@ public class WorkSpaceController implements Initializable {
     }
     @FXML
     void ebList(ActionEvent event) {
+       
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyebrows");
         imageCDLL = loader.loadImages();
         faceL = false;
@@ -191,6 +190,7 @@ public class WorkSpaceController implements Initializable {
     }
     @FXML
     void aList(ActionEvent event) {
+        
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/accessories");
         imageCDLL = loader.loadImages();
         faceL = false;
@@ -204,26 +204,36 @@ public class WorkSpaceController implements Initializable {
     @FXML
     void iv0Selected(MouseEvent event) {
        updateSelected(iv0.getImage());
+       ImageView sIM = selectedIM();
+       sIM.setDisable(false);
     }
 
     @FXML
     void iv1Selected(MouseEvent event) {
         updateSelected(iv1.getImage());
+        ImageView sIM = selectedIM();
+        sIM.setDisable(false);
     }
 
     @FXML
     void iv2Selected(MouseEvent event) {
         updateSelected(iv2.getImage());
+        ImageView sIM = selectedIM();
+        sIM.setDisable(false);
     }
 
     @FXML
     void iv3Selected(MouseEvent event) {
         updateSelected(iv3.getImage());
+        ImageView sIM = selectedIM();
+        sIM.setDisable(false);
     }
 
     @FXML
     void iv4Selected(MouseEvent event) {
         updateSelected(iv4.getImage());
+        ImageView sIM = selectedIM();
+        sIM.setDisable(false);
     }
     
     public void updateSelected(Image img){
@@ -259,39 +269,49 @@ public class WorkSpaceController implements Initializable {
     void deleteElement(ActionEvent event) {
          if(faceL){
             faceSelected.setImage(null);
+            faceSelected.setDisable(true);
         } else if (eyesL){
             eyeSelected.setImage(null);
+            eyeSelected.setDisable(true);
         } else if (eyebrowL){
             eyeBrowSelected.setImage(null);
+            eyeBrowSelected.setDisable(true);
         } else if (mouthL){
             mouthSelected.setImage(null);
+            mouthSelected.setDisable(true);
         } else if (accessoriesL){
             accessorieSelected.setImage(null);
+            accessorieSelected.setDisable(true);
         }
     }
     
-     @FXML
-    void bAlto(ActionEvent event) {
+    @FXML
+    void updateSizes(ActionEvent event) {
+        changeHeight();
+        changeWidth();
+    }
+    
+
+    void changeHeight() {
         double nuevoAlto = 0;
         try{
-           nuevoAlto = Double.valueOf(tAlto.getText());
-        }catch (Exception e){
-            e.printStackTrace();
+           nuevoAlto = Double.parseDouble(tAlto.getText());
+        }catch (NumberFormatException e){
+            System.out.println("Ingrese un valor numerico");
         }
-        
         ImageView selectedIM = selectedIM();
         selectedIM.setFitHeight(nuevoAlto);
     }
 
-    @FXML
-    void bAncho(ActionEvent event) {
+
+    void changeWidth() {
         double nuevoAncho = 0;
         try{
-           nuevoAncho = Double.valueOf(tAncho.getText());
-        }catch (Exception e){
-            e.printStackTrace();
+           nuevoAncho = Double.parseDouble(tAncho.getText());
+          
+        }catch (NumberFormatException e){
+             System.out.println("Ingrese un valor numerico");
         }
-        
         ImageView selectedIM = selectedIM();
         selectedIM.setFitWidth(nuevoAncho);
     }
