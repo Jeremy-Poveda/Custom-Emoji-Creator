@@ -26,7 +26,7 @@ public class CircularDoubleLinkedList<T> implements List<T> {
     
     public int indexOf(T element) {
         int indexCount = 0;
-        for(DNode<T> first = this.last.getNext(); first.getContent() != element; first = first.getNext()){
+        for(DNode<T> viajero = this.last.getNext(); !viajero.getContent().equals(element); viajero = viajero.getNext()){
             indexCount++;
             if(indexCount > this.size()-1){
                System.out.println("No se encontro el elemento");
@@ -143,18 +143,19 @@ public class CircularDoubleLinkedList<T> implements List<T> {
     @Override
     public T remove(int index){
         T content;
-        if(index < 0 || index >= this.size() ){
-            System.out.println("[Error] Ingrese un índice válido.");
-            return null;
-        }
         if (this.size() == 1){
             content = last.getContent();
             last = null; // Deja la lista vacía.
         } else {
-            DNode<T> selectedNode = this.getNode(index);
+            
+            DNode<T> selectedNode = this.getNode(index); // getNode se encarga de agarrar los nodos asi sea con indice negativo
             content = selectedNode.getContent();
             selectedNode.getPrev().setNext(selectedNode.getNext());
-            selectedNode.getNext().setPrev(selectedNode.getPrev()); 
+            if(index == this.size()){
+                this.last = selectedNode.getPrev();
+            }
+            selectedNode.getNext().setPrev(selectedNode.getPrev());
+            
         }
         return content;
     }

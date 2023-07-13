@@ -95,6 +95,8 @@ public class WorkSpaceController implements Initializable {
 
     private double initialX;
     private double initialY;
+    
+    private int indexSelected;
 
     @FXML
     private Pane paneIM; // Pane donde están todos los ImageView
@@ -130,8 +132,7 @@ public class WorkSpaceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Al principio solo estara activo la lista de caras
         faceL = true;
-        faceSelected.setDisable(false);
-
+        
         //Cargan las partes de los emojis predeterminados.
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
         facesCDLL = loader.loadImages();
@@ -143,14 +144,13 @@ public class WorkSpaceController implements Initializable {
         mouthsCDLL = loader.loadImages();
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/accessories");
         accessoriesCDLL = loader.loadImages();
-
-        selectedIM = selectedIM();
-
+        
+        update();
+        // Se selecciona la cara de en medio
+        updateSelected(iv2.getImage());
+        
         tAlto.setText(Double.toString(selectedIM.getFitHeight()));
         tAncho.setText(Double.toString(selectedIM.getFitWidth()));
-        update();
-        updateSelected(iv2.getImage());
-        deleteImg.setOnAction(event -> deleteImgSelected());
         agregarimg.setOnAction(event -> addImage());
 
     }
@@ -159,36 +159,64 @@ public class WorkSpaceController implements Initializable {
         selectedIM = selectedIM();
         imageCDLL = getCDLL();
         updateDisable();
-        for (int i = 0; i < 5; i++) {
+        
+        if(!imageCDLL.isEmpty()){
+            for (int i = 0; i < 5; i++) {
             updaterQueue.offer(imageCDLL.get(indexDisplay + i));
+            }
+            iv0.setImage(updaterQueue.poll());
+            iv1.setImage(updaterQueue.poll());
+            iv2.setImage(updaterQueue.poll());
+            iv3.setImage(updaterQueue.poll());
+            iv4.setImage(updaterQueue.poll());
+            
+        } else {
+            iv0.setImage(null);
+            iv1.setImage(null);
+            iv2.setImage(null);
+            iv3.setImage(null);
+            iv4.setImage(null);
         }
-        iv0.setImage(updaterQueue.poll());
-        iv1.setImage(updaterQueue.poll());
-        iv2.setImage(updaterQueue.poll());
-        iv3.setImage(updaterQueue.poll());
-        iv4.setImage(updaterQueue.poll());
+        
+    }
+    
+    private void updateIndexSelected(){
+        indexSelected = imageCDLL.indexOf(selectedIM.getImage());
+        System.out.println(indexSelected);
     }
 
     @FXML
     void next(ActionEvent event) {
         indexDisplay++;
         update();
-        updateSelected(iv2.getImage()); // Manera secuencial
+        if(!imageCDLL.isEmpty()){
+           updateSelected(iv2.getImage()); // Manera secuencial, escoge siempre la central
+           updateIndexSelected();
+        }
     }
 
     @FXML
     void prev(ActionEvent event) {
         indexDisplay--;
         update();
-        updateSelected(iv2.getImage()); // Manera secuencial
+        if(!imageCDLL.isEmpty()){
+           updateSelected(iv2.getImage()); // Manera secuencial, escoge siempre la central
+           updateIndexSelected();
+        }
     }
 
-    private void deleteImgSelected() {
-        if(!imageCDLL.isEmpty()){
-           int indexDeleted = imageCDLL.indexOf(selectedIM.getImage());
-           imageCDLL.remove(indexDeleted);
-           update(); 
-           updateSelected(imageCDLL.get(indexDeleted));
+    @FXML
+    void deleteImgSelected() {
+        if(!(imageCDLL.isEmpty())){
+           imageCDLL.remove(indexSelected);
+          
+            update(); 
+           if(!(imageCDLL.isEmpty())){
+//              System.out.println(imageCDLL);
+              updateSelected(imageCDLL.get(indexSelected));
+           } else {
+              updateSelected(null);
+           }
         }
     }
 
@@ -209,6 +237,8 @@ public class WorkSpaceController implements Initializable {
             System.out.println("Imagen agregada en el índice: " + newIndex);
         }
     }
+    
+    // Eventos de los botones para cada parte del emoji
 
     @FXML
     void fList(ActionEvent event) {
@@ -260,35 +290,50 @@ public class WorkSpaceController implements Initializable {
         update();
     }
 
-    //Manera directa
+    //Seleccion de manera directa
     @FXML
     void iv0Selected(MouseEvent event) {
-        updateSelected(iv0.getImage());
-        updateDisable();
+        if(!imageCDLL.isEmpty()){
+            updateSelected(iv0.getImage());
+            updateDisable();
+            updateIndexSelected();
+        }
     }
 
     @FXML
     void iv1Selected(MouseEvent event) {
-        updateSelected(iv1.getImage());
-        updateDisable();
+        if(!imageCDLL.isEmpty()){
+            updateSelected(iv1.getImage());
+            updateDisable();
+            updateIndexSelected();
+        }
     }
 
     @FXML
     void iv2Selected(MouseEvent event) {
-        updateSelected(iv2.getImage());
-        updateDisable();
+        if(!imageCDLL.isEmpty()){
+            updateSelected(iv2.getImage());
+            updateDisable();
+            updateIndexSelected();
+        }
     }
 
     @FXML
     void iv3Selected(MouseEvent event) {
-        updateSelected(iv3.getImage());
-        updateDisable();
+        if(!imageCDLL.isEmpty()){
+            updateSelected(iv3.getImage());
+            updateDisable();
+            updateIndexSelected();
+        }
     }
 
     @FXML
     void iv4Selected(MouseEvent event) {
-        updateSelected(iv4.getImage());
-        updateDisable();
+        if(!imageCDLL.isEmpty()){
+            updateSelected(iv4.getImage());
+            updateDisable();
+            updateIndexSelected();
+        }
     }
 
     public void updateSelected(Image img) {
@@ -338,23 +383,23 @@ public class WorkSpaceController implements Initializable {
     public void updateDisable() {
         if (faceL) {
             faceSelected.setDisable(false);
-        } else if (eyesL) {
+        } if (eyesL) {
             eyeSelected.setDisable(false);
-        } else if (eyebrowL) {
+        } if (eyebrowL) {
             eyeBrowSelected.setDisable(false);
-        } else if (mouthL) {
+        } if (mouthL) {
             mouthSelected.setDisable(false);
-        } else if (accessoriesL) {
+        } if (accessoriesL) {
             accessorieSelected.setDisable(false);
-        } else if (!faceL) {
+        } if (!faceL) {
             faceSelected.setDisable(true);
-        } else if (!eyesL) {
+        } if (!eyesL) {
             eyeSelected.setDisable(true);
-        } else if (!eyebrowL) {
+        } if (!eyebrowL) {
             eyeBrowSelected.setDisable(true);
-        } else if (!mouthL) {
+        } if (!mouthL) {
             mouthSelected.setDisable(true);
-        } else if (!accessoriesL) {
+        } if (!accessoriesL) {
             accessorieSelected.setDisable(true);
         }
     }
