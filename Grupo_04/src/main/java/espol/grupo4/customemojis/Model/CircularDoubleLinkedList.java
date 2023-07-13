@@ -23,6 +23,19 @@ public class CircularDoubleLinkedList<T> implements List<T> {
         return count+1; // Se suma uno ya que en el for no se toma en cuenta el nodo por donde empezó
     }
     
+    
+    public int indexOf(T element) {
+        int indexCount = 0;
+        for(DNode<T> first = this.last.getNext(); first.getContent() != element; first = first.getNext()){
+            indexCount++;
+            if(indexCount > this.size()-1){
+               System.out.println("No se encontro el elemento");
+               return -1; 
+            }
+        }
+        return indexCount;
+    }
+    
     @Override
     public T get(int index) {
         return this.getNode(index).getContent();

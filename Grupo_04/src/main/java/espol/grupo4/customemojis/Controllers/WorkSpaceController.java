@@ -68,15 +68,23 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     private Button deleteImg;
-    
+
     @FXML
     private Button agregarimg;
 
-    
     private ArrayDeque<Image> updaterQueue = new ArrayDeque<>();
 
     Loader loader;
 
+    private ImageView selectedIM;
+    // Listas del sistema
+    CircularDoubleLinkedList<Image> facesCDLL;
+    CircularDoubleLinkedList<Image> eyesCDLL;
+    CircularDoubleLinkedList<Image> eyeBrowsCDLL;
+    CircularDoubleLinkedList<Image> mouthsCDLL;
+    CircularDoubleLinkedList<Image> accessoriesCDLL;
+
+    // Lista con la que se esta trabajando, cambia cuando se activa un boton
     CircularDoubleLinkedList<Image> imageCDLL;
 
     private boolean faceL = false;
@@ -120,11 +128,24 @@ public class WorkSpaceController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Al principio solo estara activo la lista de caras
         faceL = true;
         faceSelected.setDisable(false);
+
+        //Cargan las partes de los emojis predeterminados.
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
-        imageCDLL = loader.loadImages();
-        ImageView selectedIM = selectedIM();
+        facesCDLL = loader.loadImages();
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyes");
+        eyesCDLL = loader.loadImages();
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyebrows");
+        eyeBrowsCDLL = loader.loadImages();
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/mouths");
+        mouthsCDLL = loader.loadImages();
+        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/accessories");
+        accessoriesCDLL = loader.loadImages();
+
+        selectedIM = selectedIM();
+
         tAlto.setText(Double.toString(selectedIM.getFitHeight()));
         tAncho.setText(Double.toString(selectedIM.getFitWidth()));
         update();
@@ -135,6 +156,9 @@ public class WorkSpaceController implements Initializable {
     }
 
     private void update() {
+        selectedIM = selectedIM();
+        imageCDLL = getCDLL();
+        updateDisable();
         for (int i = 0; i < 5; i++) {
             updaterQueue.offer(imageCDLL.get(indexDisplay + i));
         }
@@ -150,8 +174,6 @@ public class WorkSpaceController implements Initializable {
         indexDisplay++;
         update();
         updateSelected(iv2.getImage()); // Manera secuencial
-        ImageView sIM = selectedIM();
-        sIM.setDisable(false);
     }
 
     @FXML
@@ -159,34 +181,15 @@ public class WorkSpaceController implements Initializable {
         indexDisplay--;
         update();
         updateSelected(iv2.getImage()); // Manera secuencial
-        ImageView sIM = selectedIM();
-        sIM.setDisable(false);
     }
 
     private void deleteImgSelected() {
-
-        imageCDLL.remove(indexDisplay);
-        if (indexDisplay >= imageCDLL.size()) {
-            indexDisplay = imageCDLL.size() - 1;
-        } else if (indexDisplay < imageCDLL.size()) {
-            indexDisplay = imageCDLL.size();
-
+        if(!imageCDLL.isEmpty()){
+           int indexDeleted = imageCDLL.indexOf(selectedIM.getImage());
+           imageCDLL.remove(indexDeleted);
+           update(); 
+           updateSelected(imageCDLL.get(indexDeleted));
         }
-        refresh();
-    }
-
-    private void refresh() {
-        updaterQueue.clear();
-        for (int i = 0; i < 5; i++) {
-            if (indexDisplay + i < imageCDLL.size()) {
-                updaterQueue.offer(imageCDLL.get(indexDisplay + i));
-            }
-        }
-        iv0.setImage(updaterQueue.poll());
-        iv1.setImage(updaterQueue.poll());
-        iv2.setImage(updaterQueue.poll());
-        iv3.setImage(updaterQueue.poll());
-        iv4.setImage(updaterQueue.poll());
     }
 
     @FXML
@@ -198,19 +201,10 @@ public class WorkSpaceController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
-            // Cargar la nueva imagen
             Image newImage = new Image(selectedFile.toURI().toString());
-
-            // Agregar la nueva imagen a la lista
-            imageCDLL.addLast(newImage);
-
-            // Actualizar la visualización de las imágenes
+            imageCDLL.add(newImage);
             update();
-
-            // Actualizar la imagen seleccionada
             updateSelected(newImage);
-
-            // Obtener el índice de la nueva imagen agregada
             int newIndex = imageCDLL.size() - 1;
             System.out.println("Imagen agregada en el índice: " + newIndex);
         }
@@ -218,8 +212,6 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void fList(ActionEvent event) {
-        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
-        imageCDLL = loader.loadImages();
         faceL = true;
         eyesL = false;
         mouthL = false;
@@ -230,9 +222,6 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void mList(ActionEvent event) {
-
-        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/mouth");
-        imageCDLL = loader.loadImages();
         faceL = false;
         eyesL = false;
         mouthL = true;
@@ -243,9 +232,6 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void eList(ActionEvent event) {
-
-        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyes");
-        imageCDLL = loader.loadImages();
         faceL = false;
         eyesL = true;
         mouthL = false;
@@ -256,9 +242,6 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void ebList(ActionEvent event) {
-
-        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyebrows");
-        imageCDLL = loader.loadImages();
         faceL = false;
         eyesL = false;
         mouthL = false;
@@ -269,9 +252,6 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void aList(ActionEvent event) {
-
-        loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/accessories");
-        imageCDLL = loader.loadImages();
         faceL = false;
         eyesL = false;
         mouthL = false;
@@ -284,36 +264,31 @@ public class WorkSpaceController implements Initializable {
     @FXML
     void iv0Selected(MouseEvent event) {
         updateSelected(iv0.getImage());
-        ImageView sIM = selectedIM();
-        sIM.setDisable(false);
+        updateDisable();
     }
 
     @FXML
     void iv1Selected(MouseEvent event) {
         updateSelected(iv1.getImage());
-        ImageView sIM = selectedIM();
-        sIM.setDisable(false);
+        updateDisable();
     }
 
     @FXML
     void iv2Selected(MouseEvent event) {
         updateSelected(iv2.getImage());
-        ImageView sIM = selectedIM();
-        sIM.setDisable(false);
+        updateDisable();
     }
 
     @FXML
     void iv3Selected(MouseEvent event) {
         updateSelected(iv3.getImage());
-        ImageView sIM = selectedIM();
-        sIM.setDisable(false);
+        updateDisable();
     }
 
     @FXML
     void iv4Selected(MouseEvent event) {
         updateSelected(iv4.getImage());
-        ImageView sIM = selectedIM();
-        sIM.setDisable(false);
+        updateDisable();
     }
 
     public void updateSelected(Image img) {
@@ -330,6 +305,21 @@ public class WorkSpaceController implements Initializable {
         }
     }
 
+    public CircularDoubleLinkedList<Image> getCDLL() {
+        if (faceL) {
+            return facesCDLL;
+        } else if (eyesL) {
+            return eyesCDLL;
+        } else if (eyebrowL) {
+            return eyeBrowsCDLL;
+        } else if (mouthL) {
+            return mouthsCDLL;
+        } else if (accessoriesL) {
+            return accessoriesCDLL;
+        }
+        return null;
+    }
+
     public ImageView selectedIM() {
         if (faceL) {
             return faceSelected;
@@ -343,6 +333,30 @@ public class WorkSpaceController implements Initializable {
             return accessorieSelected;
         }
         return null;
+    }
+
+    public void updateDisable() {
+        if (faceL) {
+            faceSelected.setDisable(false);
+        } else if (eyesL) {
+            eyeSelected.setDisable(false);
+        } else if (eyebrowL) {
+            eyeBrowSelected.setDisable(false);
+        } else if (mouthL) {
+            mouthSelected.setDisable(false);
+        } else if (accessoriesL) {
+            accessorieSelected.setDisable(false);
+        } else if (!faceL) {
+            faceSelected.setDisable(true);
+        } else if (!eyesL) {
+            eyeSelected.setDisable(true);
+        } else if (!eyebrowL) {
+            eyeBrowSelected.setDisable(true);
+        } else if (!mouthL) {
+            mouthSelected.setDisable(true);
+        } else if (!accessoriesL) {
+            accessorieSelected.setDisable(true);
+        }
     }
 
     @FXML
@@ -378,7 +392,6 @@ public class WorkSpaceController implements Initializable {
         } catch (NumberFormatException e) {
             System.out.println("Ingrese un valor numerico");
         }
-        ImageView selectedIM = selectedIM();
         selectedIM.setFitHeight(nuevoAlto);
     }
 
@@ -390,13 +403,12 @@ public class WorkSpaceController implements Initializable {
         } catch (NumberFormatException e) {
             System.out.println("Ingrese un valor numerico");
         }
-        ImageView selectedIM = selectedIM();
+
         selectedIM.setFitWidth(nuevoAncho);
     }
 
     @FXML
     void save(ActionEvent event) {
-
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Guardar emoji");
         dialog.setHeaderText("Ingrese el nombre para guardar su emoji");
