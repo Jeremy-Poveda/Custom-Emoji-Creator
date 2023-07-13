@@ -10,8 +10,7 @@ import javafx.scene.control.Button;
 import espol.grupo4.customemojis.App;
 import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
 import espol.grupo4.customemojis.Model.Loader;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.util.ArrayDeque;
 
 import javafx.scene.control.TextField;
@@ -22,11 +21,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.embed.swing.SwingFXUtils;
 import java.io.IOException;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class WorkSpaceController implements Initializable {
 
@@ -71,6 +75,9 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     private Button agregarimg;
+    
+    @FXML
+    private Label tElementUsed;
 
     private ArrayDeque<Image> updaterQueue = new ArrayDeque<>();
 
@@ -95,7 +102,7 @@ public class WorkSpaceController implements Initializable {
 
     private double initialX;
     private double initialY;
-    
+
     private int indexSelected;
 
     @FXML
@@ -132,7 +139,7 @@ public class WorkSpaceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Al principio solo estara activo la lista de caras
         faceL = true;
-        
+        tElementUsed.setText("Usted ha seleccionado caras");
         //Cargan las partes de los emojis predeterminados.
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
         facesCDLL = loader.loadImages();
@@ -144,11 +151,11 @@ public class WorkSpaceController implements Initializable {
         mouthsCDLL = loader.loadImages();
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/accessories");
         accessoriesCDLL = loader.loadImages();
-        
+
         update();
         // Se selecciona la cara de en medio
         updateSelected(iv2.getImage());
-        
+
         tAlto.setText(Double.toString(selectedIM.getFitHeight()));
         tAncho.setText(Double.toString(selectedIM.getFitWidth()));
         agregarimg.setOnAction(event -> addImage());
@@ -159,28 +166,29 @@ public class WorkSpaceController implements Initializable {
         selectedIM = selectedIM();
         imageCDLL = getCDLL();
         updateDisable();
-        
-        if(!imageCDLL.isEmpty()){
+
+        if (!imageCDLL.isEmpty()) {
             for (int i = 0; i < 5; i++) {
-            updaterQueue.offer(imageCDLL.get(indexDisplay + i));
+                updaterQueue.offer(imageCDLL.get(indexDisplay + i));
             }
             iv0.setImage(updaterQueue.poll());
             iv1.setImage(updaterQueue.poll());
             iv2.setImage(updaterQueue.poll());
             iv3.setImage(updaterQueue.poll());
             iv4.setImage(updaterQueue.poll());
-            
+
         } else {
+
             iv0.setImage(null);
             iv1.setImage(null);
             iv2.setImage(null);
             iv3.setImage(null);
             iv4.setImage(null);
         }
-        
+
     }
-    
-    private void updateIndexSelected(){
+
+    private void updateIndexSelected() {
         indexSelected = imageCDLL.indexOf(selectedIM.getImage());
         System.out.println(indexSelected);
     }
@@ -189,9 +197,9 @@ public class WorkSpaceController implements Initializable {
     void next(ActionEvent event) {
         indexDisplay++;
         update();
-        if(!imageCDLL.isEmpty()){
-           updateSelected(iv2.getImage()); // Manera secuencial, escoge siempre la central
-           updateIndexSelected();
+        if (!imageCDLL.isEmpty()) {
+            updateSelected(iv2.getImage()); // Manera secuencial, escoge siempre la central
+            updateIndexSelected();
         }
     }
 
@@ -199,24 +207,24 @@ public class WorkSpaceController implements Initializable {
     void prev(ActionEvent event) {
         indexDisplay--;
         update();
-        if(!imageCDLL.isEmpty()){
-           updateSelected(iv2.getImage()); // Manera secuencial, escoge siempre la central
-           updateIndexSelected();
+        if (!imageCDLL.isEmpty()) {
+            updateSelected(iv2.getImage()); // Manera secuencial, escoge siempre la central
+            updateIndexSelected();
         }
     }
 
     @FXML
     void deleteImgSelected() {
-        if(!(imageCDLL.isEmpty())){
-           imageCDLL.remove(indexSelected);
-          
-            update(); 
-           if(!(imageCDLL.isEmpty())){
+        if (!(imageCDLL.isEmpty())) {
+            imageCDLL.remove(indexSelected);
+
+            update();
+            if (!(imageCDLL.isEmpty())) {
 //              System.out.println(imageCDLL);
-              updateSelected(imageCDLL.get(indexSelected));
-           } else {
-              updateSelected(null);
-           }
+                updateSelected(imageCDLL.get(indexSelected));
+            } else {
+                updateSelected(null);
+            }
         }
     }
 
@@ -237,9 +245,8 @@ public class WorkSpaceController implements Initializable {
             System.out.println("Imagen agregada en el índice: " + newIndex);
         }
     }
-    
-    // Eventos de los botones para cada parte del emoji
 
+    // Eventos de los botones para cada parte del emoji
     @FXML
     void fList(ActionEvent event) {
         faceL = true;
@@ -247,7 +254,9 @@ public class WorkSpaceController implements Initializable {
         mouthL = false;
         eyebrowL = false;
         accessoriesL = false;
+        tElementUsed.setText("Usted ha seleccionado caras");
         update();
+        indexSelected = 0;
     }
 
     @FXML
@@ -257,7 +266,9 @@ public class WorkSpaceController implements Initializable {
         mouthL = true;
         eyebrowL = false;
         accessoriesL = false;
+        tElementUsed.setText("Usted ha seleccionado bocas");
         update();
+        indexSelected = 0;
     }
 
     @FXML
@@ -267,7 +278,9 @@ public class WorkSpaceController implements Initializable {
         mouthL = false;
         eyebrowL = false;
         accessoriesL = false;
+        tElementUsed.setText("Usted ha seleccionado ojos");
         update();
+        indexSelected = 0;
     }
 
     @FXML
@@ -277,7 +290,9 @@ public class WorkSpaceController implements Initializable {
         mouthL = false;
         eyebrowL = true;
         accessoriesL = false;
+        tElementUsed.setText("Usted ha seleccionado cejas");
         update();
+        indexSelected = 0;
     }
 
     @FXML
@@ -287,13 +302,15 @@ public class WorkSpaceController implements Initializable {
         mouthL = false;
         eyebrowL = false;
         accessoriesL = true;
+        tElementUsed.setText("Usted ha seleccionado accesorios");
         update();
+        indexSelected = 0;
     }
 
     //Seleccion de manera directa
     @FXML
     void iv0Selected(MouseEvent event) {
-        if(!imageCDLL.isEmpty()){
+        if (!imageCDLL.isEmpty()) {
             updateSelected(iv0.getImage());
             updateDisable();
             updateIndexSelected();
@@ -302,7 +319,7 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void iv1Selected(MouseEvent event) {
-        if(!imageCDLL.isEmpty()){
+        if (!imageCDLL.isEmpty()) {
             updateSelected(iv1.getImage());
             updateDisable();
             updateIndexSelected();
@@ -311,7 +328,7 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void iv2Selected(MouseEvent event) {
-        if(!imageCDLL.isEmpty()){
+        if (!imageCDLL.isEmpty()) {
             updateSelected(iv2.getImage());
             updateDisable();
             updateIndexSelected();
@@ -320,7 +337,7 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void iv3Selected(MouseEvent event) {
-        if(!imageCDLL.isEmpty()){
+        if (!imageCDLL.isEmpty()) {
             updateSelected(iv3.getImage());
             updateDisable();
             updateIndexSelected();
@@ -329,7 +346,7 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void iv4Selected(MouseEvent event) {
-        if(!imageCDLL.isEmpty()){
+        if (!imageCDLL.isEmpty()) {
             updateSelected(iv4.getImage());
             updateDisable();
             updateIndexSelected();
@@ -383,23 +400,32 @@ public class WorkSpaceController implements Initializable {
     public void updateDisable() {
         if (faceL) {
             faceSelected.setDisable(false);
-        } if (eyesL) {
+        }
+        if (eyesL) {
             eyeSelected.setDisable(false);
-        } if (eyebrowL) {
+        }
+        if (eyebrowL) {
             eyeBrowSelected.setDisable(false);
-        } if (mouthL) {
+        }
+        if (mouthL) {
             mouthSelected.setDisable(false);
-        } if (accessoriesL) {
+        }
+        if (accessoriesL) {
             accessorieSelected.setDisable(false);
-        } if (!faceL) {
+        }
+        if (!faceL) {
             faceSelected.setDisable(true);
-        } if (!eyesL) {
+        }
+        if (!eyesL) {
             eyeSelected.setDisable(true);
-        } if (!eyebrowL) {
+        }
+        if (!eyebrowL) {
             eyeBrowSelected.setDisable(true);
-        } if (!mouthL) {
+        }
+        if (!mouthL) {
             mouthSelected.setDisable(true);
-        } if (!accessoriesL) {
+        }
+        if (!accessoriesL) {
             accessorieSelected.setDisable(true);
         }
     }
@@ -459,14 +485,32 @@ public class WorkSpaceController implements Initializable {
         dialog.setHeaderText("Ingrese el nombre para guardar su emoji");
         dialog.setContentText("Nombre archivo: ");
         dialog.showAndWait().ifPresent(fileName -> {
-            File file = new File("src/main/resources/espol/grupo4/customemojis/exports/" + fileName + ".png");
-            WritableImage writableImage = paneIM.snapshot(new SnapshotParameters(), null);
-            BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
-            try {
-                ImageIO.write(bufferedImage, "png", file);
-                System.out.println("Captura de imagen guardada correctamente");
-            } catch (IOException e) {
-                System.out.println("Error al guardar la captura de imagen: " + e.getMessage());
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setTitle("Seleccione una carpeta");
+
+            // Mostrar el File Chooser y obtener la carpeta seleccionada
+            File selectedDirectory = directoryChooser.showDialog(App.getPrimaryStage());
+
+            if (selectedDirectory != null) {
+                // Obtener el path de la carpeta seleccionada
+                String folderPath = selectedDirectory.getAbsolutePath();
+
+                String filePath = folderPath + File.separator + fileName + ".png";
+
+                File file = new File(filePath);
+                SnapshotParameters parameters = new SnapshotParameters();
+//                parameters.setViewport(new javafx.geometry.Rectangle2D(0, 0, 300, 300)); //Hace la captura cuadrada
+                parameters.setFill(Color.TRANSPARENT); // Establece el color de fondo transparente
+                WritableImage writableImage = paneIM.snapshot(parameters, null);
+                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
+                try {
+                    ImageIO.write(bufferedImage, "png", file);
+                    System.out.println("Captura de imagen guardada correctamente");
+                } catch (IOException e) {
+                    System.out.println("Error al guardar la captura de imagen: " + e.getMessage());
+                }
+            } else {
+                System.out.println("No se ha seleccionado ninguna carpeta.");
             }
         });
     }
