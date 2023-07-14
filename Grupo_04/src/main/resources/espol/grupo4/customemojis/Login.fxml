@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="691.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.grupo4.customemojis.Controllers.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="723.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="espol.grupo4.customemojis.Controllers.LoginController">
     <children>
-        <ImageView fitHeight="695.0" fitWidth="1061.0" layoutX="-156.0" layoutY="-48.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-86.62030029296875" AnchorPane.leftAnchor="-156.0" AnchorPane.rightAnchor="-180.0" AnchorPane.topAnchor="-48.0">
+        <ImageView fitHeight="557.0" fitWidth="1061.0" layoutX="-156.0" layoutY="-8.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-87.0" AnchorPane.leftAnchor="-156.0" AnchorPane.rightAnchor="-214.0" AnchorPane.topAnchor="-8.0">
             <image>
                 <Image url="@img/BackgroundLogin.gif" />
             </image>
@@ -24,33 +24,33 @@
                 <Point3D />
             </rotationAxis>
         </ImageView>
-        <Button fx:id="loginButton" layoutX="158.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="33.0" prefWidth="168.0" text="Iniciar sesión" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="399.0">
+        <Button fx:id="loginButton" layoutX="158.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="33.0" prefWidth="168.0" text="Iniciar sesión" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="399.0" AnchorPane.topAnchor="295.0">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </Button>
-        <PasswordField fx:id="passwordField" layoutX="268.0" layoutY="238.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="270.0">
+        <PasswordField fx:id="passwordField" layoutX="268.0" layoutY="238.0" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="238.0">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </PasswordField>
-        <TextField fx:id="usernameField" layoutX="268.0" layoutY="203.0" prefHeight="25.0" prefWidth="155.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="270.0">
+        <TextField fx:id="usernameField" layoutX="268.0" layoutY="203.0" prefHeight="25.0" prefWidth="155.0" AnchorPane.bottomAnchor="285.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="203.0">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </TextField>
-        <Label fx:id="lblpassword" layoutX="165.0" layoutY="238.0" prefHeight="24.0" prefWidth="100.0" text="Contraseña:" textFill="WHITE" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="460.0">
+        <Label fx:id="lblpassword" layoutX="170.0" layoutY="238.0" prefHeight="24.0" prefWidth="100.0" text="Contraseña:" textFill="WHITE" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="238.0">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </Label>
-        <Label fx:id="lblusuario" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="165.0" layoutY="204.0" prefHeight="24.0" prefWidth="100.0" text="Usuario:" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="460.0" />
+        <Label fx:id="lblusuario" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="170.0" layoutY="204.0" prefHeight="24.0" prefWidth="100.0" text="Usuario:" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="285.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="204.0" />
         <Label fx:id="statusLabel" layoutX="246.0" layoutY="263.0" prefHeight="33.0" prefWidth="226.0" />
-        <Label fx:id="lbllogin" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="110.0" prefHeight="43.0" prefWidth="108.0" text="Login" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="275.0">
+        <Label fx:id="lbllogin" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="110.0" prefHeight="43.0" prefWidth="108.0" text="Login" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="275.0" AnchorPane.topAnchor="110.0">
          <font>
             <Font name="Impact" size="51.0" />
          </font></Label>
-         <Button fx:id="registerButton" layoutX="374.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="33.0" prefWidth="168.0" text="Registrar" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="183.0">
+         <Button fx:id="registerButton" layoutX="374.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="33.0" prefWidth="168.0" text="Registrar" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="295.0">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>

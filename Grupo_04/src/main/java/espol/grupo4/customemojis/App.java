@@ -21,7 +21,7 @@ public class App extends Application {
         stage = primaryStage;
         primaryStage.setTitle("Inicio de sesión");
         primaryStage.setScene(scene);
-//        primaryStage.setResizable(false);
+        primaryStage.setResizable(false);
         boolean fontLoaded = Font.loadFont(App.class.getResourceAsStream("fonts/8-bitArcadeOut.ttf"), 14) != null;
         if (fontLoaded) {
             System.out.println("La fuente personalizada se cargó correctamente.");
@@ -66,12 +66,12 @@ public class App extends Application {
 
     public static void main(String[] args) {
         
-//        CircularDoubleLinkedList<String> strings = new CircularDoubleLinkedList<>();
-//        strings.add("Hola");
-//        strings.add("Poveda");
-//        strings.add("Jeremy");
-//        strings.add("ComoEstas");
-//        System.out.println(strings.indexOf("Jeremy"));
+        CircularDoubleLinkedList<String> strings = new CircularDoubleLinkedList<>();
+        strings.add("Hola");
+        strings.add("Poveda");
+        strings.add("Jeremy");
+        strings.add("ComoEstas");
+        System.out.println(strings.get(-2));
         
         launch(args);
         

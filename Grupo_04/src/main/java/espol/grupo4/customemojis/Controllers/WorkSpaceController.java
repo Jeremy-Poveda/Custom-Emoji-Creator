@@ -154,7 +154,7 @@ public class WorkSpaceController implements Initializable {
 
         update();
         // Se selecciona la cara de en medio
-        updateSelected(iv2.getImage());
+        updateSelected(iv0.getImage());
 
         tAlto.setText(Double.toString(selectedIM.getFitHeight()));
         tAncho.setText(Double.toString(selectedIM.getFitWidth()));
@@ -163,8 +163,8 @@ public class WorkSpaceController implements Initializable {
     }
 
     private void update() {
-        selectedIM = selectedIM();
-        imageCDLL = getCDLL();
+        selectedIM = selectedIM(); // Retorna la ImageView de la parte seleccionada actual
+        imageCDLL = getCDLL(); // Retorna la lista de la parte del emoji actual
         updateDisable();
 
         if (!imageCDLL.isEmpty()) {
@@ -220,7 +220,7 @@ public class WorkSpaceController implements Initializable {
 
             update();
             if (!(imageCDLL.isEmpty())) {
-//              System.out.println(imageCDLL);
+                System.out.println(imageCDLL);
                 updateSelected(imageCDLL.get(indexSelected));
             } else {
                 updateSelected(null);
