@@ -39,7 +39,7 @@
                 <Font name="Arial" size="13.0" />
             </font>
         </TextField>
-        <Label fx:id="lblpassword" layoutX="170.0" layoutY="238.0" prefHeight="24.0" prefWidth="100.0" text="Contraseña:" textFill="WHITE" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="455.0" AnchorPane.topAnchor="238.0">
+        <Label fx:id="lblpassword" layoutX="158.0" layoutY="238.0" prefHeight="24.0" prefWidth="157.0" text="Contraseña:" textFill="WHITE" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="408.0" AnchorPane.topAnchor="238.0">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>

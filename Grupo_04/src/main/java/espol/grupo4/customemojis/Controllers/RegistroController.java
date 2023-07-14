@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import espol.grupo4.customemojis.App;
+import java.util.Iterator;
+import java.util.Map;
 
 public class RegistroController {
 
@@ -37,12 +39,32 @@ public class RegistroController {
             messageText.setFill(Color.RED);
             messageText.setText("Por favor, ingresa usuario y contraseña");
         } else {
+            
             // Guardar las credenciales en el archivo credentials.txt
             LoginController loginController = new LoginController();
-            loginController.saveCredentials(username, password);
+            loginController.loadCredentials();
+            
+            
+            Map<String, String> credentials = loginController.getCredentials();
+            Iterator<String> usuarios = credentials.keySet().iterator();
+            boolean isRegister = false;
+            while(usuarios.hasNext()){
+                String userReg = usuarios.next();
+                if(userReg.equals(username)){
+                    isRegister = true;
+                }
+            }
+            if(!isRegister){
+                loginController.saveCredentials(username, password);
+                messageText.setFill(Color.GREEN);
+                messageText.setText("Registro exitoso");
+            } else {
+                messageText.setFill(Color.RED);
+                messageText.setText("Usuario ya registrado");
+            }
+           
 
-            messageText.setFill(Color.GREEN);
-            messageText.setText("Registro exitoso");
+            
 
             // Restablecer los campos de texto
             usernameField.clear();

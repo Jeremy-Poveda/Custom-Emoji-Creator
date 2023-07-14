@@ -46,7 +46,7 @@
                 <Font name="Arial" size="13.0" />
             </font>
         </TextField>
-        <Label fx:id="lblpassword" layoutX="107.0" layoutY="236.0" prefHeight="29.0" prefWidth="173.0" text="Contraseña:" textFill="#00ff97" AnchorPane.bottomAnchor="197.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="411.0" AnchorPane.topAnchor="236.0">
+        <Label fx:id="lblpassword" layoutX="129.0" layoutY="210.0" prefHeight="29.0" prefWidth="173.0" text="Contraseña:" textFill="#00ff97" AnchorPane.bottomAnchor="223.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="389.0" AnchorPane.topAnchor="210.0">
             <font>
                 <Font name="Impact" size="24.0" />
             </font>
@@ -57,7 +57,7 @@
          </font></Label>
         <Pane fx:id="lblstatus" layoutX="246.0" layoutY="263.0" prefHeight="24.0" prefWidth="200.0" AnchorPane.leftAnchor="246.0" AnchorPane.rightAnchor="246.0">
             <children>
-                <Text fx:id="messageText" layoutX="0.0" layoutY="0.0" text="" />
+                <Text fx:id="messageText" layoutX="13.0" layoutY="16.0" text="" wrappingWidth="205.0" />
             </children>
         </Pane>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="262.0" layoutY="108.0" prefHeight="64.0" prefWidth="187.0" text="Registro" textFill="#00ff97" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="256.0">

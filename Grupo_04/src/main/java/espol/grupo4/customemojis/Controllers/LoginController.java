@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
     @FXML
     private Label statusLabel;
 
-    private Map<String, String> credentials;
+    private Map<String, String> credentials = new HashMap<>();
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) {
@@ -86,11 +86,10 @@ public class LoginController implements Initializable {
         statusLabel.setFont(Font.font("Impact", 14));
         loginButton.setFont(Font.font("Impact", 14));
         registerButton.setFont(Font.font("Impact", 14));
-        credentials = new HashMap<>();
         loadCredentials();
     }
 
-    private void loadCredentials() {
+    protected void loadCredentials() {
         try {
             if (!Files.exists(Paths.get("credentials.txt"))) {
                 Files.createFile(Paths.get("credentials.txt"));
@@ -111,5 +110,8 @@ public class LoginController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public Map<String, String> getCredentials(){
+        return credentials;
     }
 }

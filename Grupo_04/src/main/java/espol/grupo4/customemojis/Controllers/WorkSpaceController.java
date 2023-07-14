@@ -154,8 +154,7 @@ public class WorkSpaceController implements Initializable {
 
         update();
         // Se selecciona la cara de en medio
-        updateSelected(iv0.getImage());
-
+        updateSelected(iv3.getImage());
         tAlto.setText(Double.toString(selectedIM.getFitHeight()));
         tAncho.setText(Double.toString(selectedIM.getFitWidth()));
         agregarimg.setOnAction(event -> addImage());
@@ -175,10 +174,9 @@ public class WorkSpaceController implements Initializable {
             iv1.setImage(updaterQueue.poll());
             iv2.setImage(updaterQueue.poll());
             iv3.setImage(updaterQueue.poll());
-            iv4.setImage(updaterQueue.poll());
+            iv4.setImage(updaterQueue.poll()); // Aprovechamos el FIFO de las colas
 
         } else {
-
             iv0.setImage(null);
             iv1.setImage(null);
             iv2.setImage(null);
