@@ -1,6 +1,5 @@
 package espol.grupo4.customemojis;
 
-import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,20 +8,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.scene.text.Font;
+
 public class App extends Application {
 
     private static Scene scene;
     private static Stage stage;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(App.class.getResource("Login.fxml"));
-        scene = new Scene(root);
+    public void start(final Stage primaryStage) throws IOException {
+        final Parent root = FXMLLoader.load(App.class.getResource("Login.fxml"));
         stage = primaryStage;
         primaryStage.setTitle("Inicio de sesión");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        boolean fontLoaded = Font.loadFont(App.class.getResourceAsStream("fonts/8-bitArcadeOut.ttf"), 14) != null;
+        final boolean fontLoaded = Font.loadFont(App.class.getResourceAsStream("fonts/8-bitArcadeOut.ttf"), 14) != null;
         if (fontLoaded) {
             System.out.println("La fuente personalizada se cargó correctamente.");
         } else {
@@ -30,15 +29,14 @@ public class App extends Application {
         }
 
         primaryStage.show();
-        
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+    private static Parent loadFXML(final String fxml) throws IOException {
+        final FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
-    public static void changeRootFXML(String pathFXML) {
+    public static void changeRootFXML(final String pathFXML) {
         Parent root = null;
         try {
             root = loadFXML(pathFXML);
@@ -48,7 +46,7 @@ public class App extends Application {
         }
     }
 
-    public static void changeRootFXML(String pathFXML, String message) {
+    public static void changeRootFXML(final String pathFXML, final String message) {
         Parent root = null;
         try {
             root = loadFXML(pathFXML);
@@ -64,16 +62,7 @@ public class App extends Application {
         return stage;
     }
 
-    public static void main(String[] args) {
-        
-        CircularDoubleLinkedList<String> strings = new CircularDoubleLinkedList<>();
-        strings.add("Hola");
-        strings.add("Poveda");
-        strings.add("Jeremy");
-        strings.add("ComoEstas");
-        System.out.println(strings.get(-2));
-        
+    public static void main(final String[] args) {
         launch(args);
-        
     }
 }
