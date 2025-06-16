@@ -1,4 +1,4 @@
-package espol.grupo4.customemojis.Controllers;
+package espol.grupo4.customemojis.controllers;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -23,7 +23,7 @@ public class RegistroController {
 
     @FXML
     private Button registerButton;
-    
+
     @FXML
     private Button backButton;
 
@@ -39,22 +39,21 @@ public class RegistroController {
             messageText.setFill(Color.RED);
             messageText.setText("Por favor, ingresa usuario y contraseña");
         } else {
-            
+
             // Guardar las credenciales en el archivo credentials.txt
             LoginController loginController = new LoginController();
             loginController.loadCredentials();
-            
-            
+
             Map<String, String> credentials = loginController.getCredentials();
             Iterator<String> usuarios = credentials.keySet().iterator();
             boolean isRegister = false;
-            while(usuarios.hasNext()){
+            while (usuarios.hasNext()) {
                 String userReg = usuarios.next();
-                if(userReg.equals(username)){
+                if (userReg.equals(username)) {
                     isRegister = true;
                 }
             }
-            if(!isRegister){
+            if (!isRegister) {
                 loginController.saveCredentials(username, password);
                 messageText.setFill(Color.GREEN);
                 messageText.setText("Registro exitoso");
@@ -62,20 +61,18 @@ public class RegistroController {
                 messageText.setFill(Color.RED);
                 messageText.setText("Usuario ya registrado");
             }
-           
-
-            
 
             // Restablecer los campos de texto
             usernameField.clear();
             passwordField.clear();
         }
     }
+
     @FXML
     private void handleBackButtonAction(ActionEvent event) throws IOException {
         // Cargar la ventana de inicio de sesión
-         App.changeRootFXML("Login", "Inicio Sesión");
-         
+        App.changeRootFXML("Login", "Inicio Sesión");
+
     }
-    
+
 }

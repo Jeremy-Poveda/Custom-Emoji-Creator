@@ -1,4 +1,4 @@
-package espol.grupo4.customemojis.Controllers;
+package espol.grupo4.customemojis.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 import espol.grupo4.customemojis.App;
-import espol.grupo4.customemojis.Model.CircularDoubleLinkedList;
-import espol.grupo4.customemojis.Model.Loader;
+import espol.grupo4.customemojis.model.CircularDoubleLinkedList;
+import espol.grupo4.customemojis.model.Loader;
 
 import java.util.ArrayDeque;
 
@@ -75,7 +75,7 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     private Button agregarimg;
-    
+
     @FXML
     private Label tElementUsed;
 
@@ -140,7 +140,7 @@ public class WorkSpaceController implements Initializable {
         // Al principio solo estara activo la lista de caras
         faceL = true;
         tElementUsed.setText("Usted ha seleccionado caras");
-        //Cargan las partes de los emojis predeterminados.
+        // Cargan las partes de los emojis predeterminados.
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/faces");
         facesCDLL = loader.loadImages();
         loader = new Loader("src/main/resources/espol/grupo4/customemojis/img/eyes");
@@ -228,7 +228,8 @@ public class WorkSpaceController implements Initializable {
 
     @FXML
     void addImage() {
-        // Obtener la ruta de la nueva imagen (por ejemplo, a través de un cuadro de diálogo)
+        // Obtener la ruta de la nueva imagen (por ejemplo, a través de un cuadro de
+        // diálogo)
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar imagen");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.png"));
@@ -305,7 +306,7 @@ public class WorkSpaceController implements Initializable {
         indexSelected = 0;
     }
 
-    //Seleccion de manera directa
+    // Seleccion de manera directa
     @FXML
     void iv0Selected(MouseEvent event) {
         if (!imageCDLL.isEmpty()) {
@@ -497,7 +498,8 @@ public class WorkSpaceController implements Initializable {
 
                 File file = new File(filePath);
                 SnapshotParameters parameters = new SnapshotParameters();
-//                parameters.setViewport(new javafx.geometry.Rectangle2D(0, 0, 300, 300)); //Hace la captura cuadrada
+                // parameters.setViewport(new javafx.geometry.Rectangle2D(0, 0, 300, 300));
+                // //Hace la captura cuadrada
                 parameters.setFill(Color.TRANSPARENT); // Establece el color de fondo transparente
                 WritableImage writableImage = paneIM.snapshot(parameters, null);
                 BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
