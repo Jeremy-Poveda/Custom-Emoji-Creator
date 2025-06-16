@@ -49,7 +49,9 @@
                 <version>3.23.0</version>
                 <configuration>
                     <rulesets>
-                        <ruleset>category/java/codestyle.xml</ruleset>
+                        <!-- <ruleset>category/java/codestyle.xml</ruleset> -->
+                        <ruleset>category/java/security.xml</ruleset>
+                        1<ruleset>category/java/errorprone.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>

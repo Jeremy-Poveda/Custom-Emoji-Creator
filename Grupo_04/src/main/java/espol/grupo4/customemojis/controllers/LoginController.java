@@ -26,7 +26,9 @@ import javafx.scene.text.Font;
 
 public class LoginController implements Initializable {
 
-    // Explicit default constructor
+    private static final String FONT_FAMILY = "Impact";
+    private static final String CREDENTIALS_FILE = "credentials.txt";
+
     public LoginController() {
         super();
     }
@@ -84,20 +86,20 @@ public class LoginController implements Initializable {
         // Cargamos la fuente personalizada
         Font.loadFont(getClass().getResourceAsStream("fonts/8-bitArcadeOut.ttf"), 30);
         // Aplicar la fuente personalizada
-        lblusuario.setFont(Font.font("Impact", 20));
-        lblpassword.setFont(Font.font("Impact", 20));
-        statusLabel.setFont(Font.font("Impact", 14));
-        loginButton.setFont(Font.font("Impact", 14));
-        registerButton.setFont(Font.font("Impact", 14));
+        lblusuario.setFont(Font.font(FONT_FAMILY, 20));
+        lblpassword.setFont(Font.font(FONT_FAMILY, 20));
+        statusLabel.setFont(Font.font(FONT_FAMILY, 14));
+        loginButton.setFont(Font.font(FONT_FAMILY, 14));
+        registerButton.setFont(Font.font(FONT_FAMILY, 14));
         loadCredentials();
     }
 
     protected void loadCredentials() {
         try {
-            if (!Files.exists(Paths.get("credentials.txt"))) {
-                Files.createFile(Paths.get("credentials.txt"));
+            if (!Files.exists(Paths.get(CREDENTIALS_FILE))) {
+                Files.createFile(Paths.get(CREDENTIALS_FILE));
             }
-            Files.lines(Paths.get("credentials.txt")).forEach(line -> {
+            Files.lines(Paths.get(CREDENTIALS_FILE)).forEach(line -> {
                 final String[] parts = line.split(":");
                 credentials.put(parts[0], parts[1]);
             });
@@ -107,7 +109,7 @@ public class LoginController implements Initializable {
     }
 
     protected void saveCredentials(final String username, final String password) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("credentials.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CREDENTIALS_FILE, true))) {
             writer.write(username + ":" + password);
             writer.newLine();
         } catch (IOException e) {
@@ -115,7 +117,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    public Map<String, String> getCredentials(){
+    public Map<String, String> getCredentials() {
         return credentials;
     }
 }
