@@ -2,24 +2,27 @@ package espol.grupo4.customemojis.model;
 
 import java.util.Iterator;
 
-import espol.grupo4.customemojis.model.List;
-
 public class CircularDoubleLinkedList<T> implements List<T> {
 
+    private static final int SINGLE_ELEMENT = 1;
+
+    private final DNode<T> sentinel;
     private DNode<T> last;
 
     public CircularDoubleLinkedList() {
-        this.last = null;
+        sentinel = new DNode<>(null); // Nodo centinela
+        sentinel.setNext(sentinel);
+        sentinel.setPrev(sentinel);
+        last = sentinel;
     }
 
     @Override
     public int size() {
         int count = 0;
-        if (last != null) {
-            for (DNode<T> viajero = last.getNext(); viajero.getNext() != last.getNext(); viajero = viajero.getNext()) {
-                count++;
-            }
-            count++; // Se suma uno ya que en el for no se toma en cuenta el nodo por donde empezó
+        DNode<T> current = sentinel.getNext();
+        while (current != sentinel) {
+            count++;
+            current = current.getNext();
         }
         return count;
     }
@@ -150,18 +153,15 @@ public class CircularDoubleLinkedList<T> implements List<T> {
     @Override
     public T remove(final int index) {
         T content = null;
-        if (this.size() == 1) {
-            content = last.getContent();
-            last = null; // Deja la lista vacía.
-        } else {
-            final DNode<T> selectedNode = this.getNode(index); // getNode se encarga de agarrar los nodos asi sea con
-                                                               // indice negativo
-            content = selectedNode.getContent();
-            selectedNode.getPrev().setNext(selectedNode.getNext());
-            if (index == this.size()) {
-                this.last = selectedNode.getPrev();
-            }
-            selectedNode.getNext().setPrev(selectedNode.getPrev());
+        if (this.size() == 0) {
+            return null;
+        }
+        DNode<T> selectedNode = this.getNode(index);
+        content = selectedNode.getContent();
+        selectedNode.getPrev().setNext(selectedNode.getNext());
+        selectedNode.getNext().setPrev(selectedNode.getPrev());
+        if (selectedNode == last) {
+            last = selectedNode.getPrev() == sentinel ? sentinel : selectedNode.getPrev();
         }
         return content;
     }
