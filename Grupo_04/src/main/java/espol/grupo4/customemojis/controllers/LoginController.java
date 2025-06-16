@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package espol.grupo4.customemojis.Controllers;
+package espol.grupo4.customemojis.controllers;
 
 import espol.grupo4.customemojis.App;
 import java.io.BufferedWriter;
@@ -22,11 +22,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-
-import espol.grupo4.customemojis.App;
 import javafx.scene.text.Font;
 
 public class LoginController implements Initializable {
+
+    // Explicit default constructor
+    public LoginController() {
+        super();
+    }
 
     @FXML
     private Label lblLogin;
@@ -55,9 +58,9 @@ public class LoginController implements Initializable {
     private Map<String, String> credentials = new HashMap<>();
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+    private void handleLoginButtonAction(final ActionEvent event) {
+        final String username = usernameField.getText();
+        final String password = passwordField.getText();
 
         if (credentials.containsKey(username) && credentials.get(username).equals(password)) {
             // Inicio de sesión exitoso
@@ -72,12 +75,12 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void handleRegisterButtonAction(ActionEvent event) {
+    private void handleRegisterButtonAction(final ActionEvent event) {
         App.changeRootFXML("Registro", "Registro");
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(final URL url, final ResourceBundle resourceBundle) {
         // Cargamos la fuente personalizada
         Font.loadFont(getClass().getResourceAsStream("fonts/8-bitArcadeOut.ttf"), 30);
         // Aplicar la fuente personalizada
@@ -95,7 +98,7 @@ public class LoginController implements Initializable {
                 Files.createFile(Paths.get("credentials.txt"));
             }
             Files.lines(Paths.get("credentials.txt")).forEach(line -> {
-                String[] parts = line.split(":");
+                final String[] parts = line.split(":");
                 credentials.put(parts[0], parts[1]);
             });
         } catch (IOException e) {
@@ -103,7 +106,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    protected void saveCredentials(String username, String password) {
+    protected void saveCredentials(final String username, final String password) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("credentials.txt", true))) {
             writer.write(username + ":" + password);
             writer.newLine();
@@ -111,6 +114,7 @@ public class LoginController implements Initializable {
             e.printStackTrace();
         }
     }
+
     public Map<String, String> getCredentials(){
         return credentials;
     }
